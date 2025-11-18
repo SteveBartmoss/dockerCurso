@@ -84,3 +84,10 @@ Permite borrar una imagen que tenemos instalada
 docker image rm CONTAINER_ID
 ```
 
+## Variables de entorno
+
+Son parametros que se pueden pasar al momento de correr un contenedor, en este caso se esta pasando la variable POSTGRES_PASSWORD
+
+```bash
+docker run --name some-postgres -e POSTGRES_PASSWORD=prueba -d postgres
+```
