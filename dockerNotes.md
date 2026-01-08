@@ -82,8 +82,57 @@ ls /data
 Con esto deberiamos ver los archivos desde la carpeta compartida de red en el contenedo donde ejecutemos el comando, si podemos verlos entonces se pueden usar los recursos de 
 la carperta compartida en red desde el bakend o en caso de que sea el front end tambien
 
+# Multi-stage build
+
+Una de las estrategias que se usan en docker es construir la aplicacion en una instancia y luego pasar todo a la instancia definitiva, es algo raro pues, primero usa una instancia de alpine para generar el build e instalar node modules, luego pasa todo 
+a una instancia de node alpine o de nginx alpine (ya se front o back) por eso le llaman multi-stage. Para este tipo de casos se inicia con la siguiente configuracion
 
 
+```dockerfile
+FROM node:20-slim AS build
 
+WORKDIR /app
 
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+```
+
+En ese paso se construye el build de la aplicacion, por eso se pasan los archivos que son necesarios y se ejecutan los comandos necesarios para esto mismo, la segunda etapa esta compuesta por lo siguiente
+
+```dockerfile
+FROM nginx:alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=build /app/dist /usr/share/nginx/html
+
+EXPOSE 8094
+
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+En esta parte definimos la instancia donde vivira la aplicacion, en este caso nginx de alpine, despues copiamos archivos de configuracion para finalmente copiar lo que se creo en el contenedor anterior, exponer el puerto necesario y despues ejeutar los comandos para levantar el servidor. Toda la configuracion seria la siguiente
+
+```dockerfile
+FROM node:20-slim AS build
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+FROM nginx:alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=build /app/dist /usr/share/nginx/html
+
+EXPOSE 8094
+
+CMD ["nginx", "-g", "daemon off;"]
+```
 
