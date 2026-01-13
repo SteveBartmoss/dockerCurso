@@ -15,11 +15,24 @@ COPY . .
 EXPOSE 8072
 CMD ["npm", "run", "start:dev"]
 
-# docker-compose.yml
+# docker-compose.yaml
 
 Define y orquesta los servicios que necesita una aplicación.
 Permite configurar imágenes, dependencias (como bases de datos),
 volúmenes, puertos expuestos y variables de entorno (.env).
+
+# Comandos utiles
+
+### docker compose up
+
+Este comando permite levantar un contenedor desde un proyecto siempre que se tenga 
+configurado correctamente el archivo compose.yaml, algunas de las variantes de este comando es la siguiente 
+
+```bash
+docker compose up -d
+```
+
+Esta variante permite levantar el contenedor sin que este ligado a la termina en la que se ejecuta el comando de compose up
 
 # Problemas de docker con synology
 
