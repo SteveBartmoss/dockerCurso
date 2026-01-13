@@ -1,26 +1,25 @@
-# Docker file
+# Dockerfile
 
-Define la forma en la que se construye un contenedor, implementa la version de node, copia archivos necesarios y los comandos que son necesarios al momento de constuir 
-el contenedor
+Define cómo se construye una imagen Docker.  
+Especifica la imagen base (por ejemplo Node), el directorio de trabajo,
+los archivos que se copian y los comandos que se ejecutan durante el build
+y al iniciar el contenedor.
 
-El siguiente es un ejemplo simple de un docker file 
+Ejemplo simple:
 
-```bash
 FROM node:20-alpine
-
 WORKDIR /app
-
 COPY package*.json ./
 RUN npm install
-
+COPY . .
 EXPOSE 8072
-
 CMD ["npm", "run", "start:dev"]
-```
 
-# Docker compose yaml
+# docker-compose.yml
 
-Define que dependencias necesita un contenedor, como imagenes de bases de datos, volumenes si son necesarios, puertos que expone, configuracion de archivos .env
+Define y orquesta los servicios que necesita una aplicación.
+Permite configurar imágenes, dependencias (como bases de datos),
+volúmenes, puertos expuestos y variables de entorno (.env).
 
 # Problemas de docker con synology
 
