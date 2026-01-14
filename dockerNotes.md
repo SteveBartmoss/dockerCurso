@@ -32,6 +32,19 @@ configurado correctamente el archivo compose.yaml, algunas de las variantes de e
 docker compose up -d
 ```
 
+### docker build
+
+Este comando contruye la imagen del servicio o aplicacion que tenemos, una de las variantes que se puede usar es la siguiente
+
+```bash
+docker build -t app-name:1.0.0 .
+```
+
+De esta manera le indicamos a docker que tiene que generar una imagen con un nombre y version especifico y tambien le decimos que tomara 
+los recursos desde el mismo origen donde corremos el comando al pasar el argumento ".", este comando es util cuando estamos creando una imagen 
+de una actualizacion, pues en lugar de plachar la imagen anterior, creamos una nueva y de esta manera tenemos un estado anterior al que 
+podemos regresar en caso de error
+
 Esta variante permite levantar el contenedor sin que este ligado a la termina en la que se ejecuta el comando de compose up
 
 # Problemas de docker con synology
