@@ -107,6 +107,36 @@ ls /data
 Con esto deberiamos ver los archivos desde la carpeta compartida de red en el contenedo donde ejecutemos el comando, si podemos verlos entonces se pueden usar los recursos de 
 la carperta compartida en red desde el bakend o en caso de que sea el front end tambien
 
+## Manejo de montaje desde docker
+
+La solucion anterior nos permite montar la unidad y que el sistema lo reconozca, pero tiene un problema, si la maquina se reinicia o docker-desktop se detiene por completo, el volumen no se monta en automatico por esa razon se puede hacer la siguiente estrategia 
+
+```js
+services:
+  api:
+    container_name: caroline-back-dev
+    build: 
+      context: .
+    image: carolineback:0.5.4
+    volumes:
+      - synology:/data
+    ports:
+      - "8072:8072"
+    env_file:
+      - .env
+    restart: unless-stopped
+
+volumes:
+  synology:
+    driver: local
+    driver_opts:
+      type: cifs
+      o: "username=Admin,password=admin,vers=3.0,uid=1000,gid=1000"
+      device: "//192.168.1.5/Sistemas"
+```
+
+En el ejemplo anterior 
+
 # Multi-stage build
 
 Una de las estrategias que se usan en docker es construir la aplicacion en una instancia y luego pasar todo a la instancia definitiva, es algo raro pues, primero usa una instancia de alpine para generar el build e instalar node modules, luego pasa todo 
