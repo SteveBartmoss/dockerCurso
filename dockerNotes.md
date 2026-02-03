@@ -135,7 +135,13 @@ volumes:
       device: "//192.168.1.5/Sistemas"
 ```
 
-En el ejemplo anterior 
+En el ejemplo anterior estamos montando internamente el volumen en docker usando CIFS, la ruta donde se monta es algo 
+
+```js
+/var/lib/docker/volumes/project-caroline-back_synology/_data
+```
+
+Esto es porque docker no usa la ruta de montaje manual, que suele ser `/mnt/synology` ya que esto se realiza mediante linux puro, pero docker puede manejar el montaje de volumenes por si mismo, esto es mas util ya que siempre que se ejecute el comando docker compose up, montara el volumen y de esta forma no importa que la maquina se reiniciara o que por alguna razon se apagara el sistema
 
 # Multi-stage build
 
