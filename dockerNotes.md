@@ -141,7 +141,7 @@ En el ejemplo anterior estamos montando internamente el volumen en docker usando
 /var/lib/docker/volumes/project-caroline-back_synology/_data
 ```
 
-Esto es porque docker no usa la ruta de montaje manual, que suele ser `/mnt/synology` ya que esto se realiza mediante linux puro, pero docker puede manejar el montaje de volumenes por si mismo, esto es mas util ya que siempre que se ejecute el comando docker compose up, montara el volumen y de esta forma no importa que la maquina se reiniciara o que por alguna razon se apagara el sistema
+Esto es porque docker no usa la ruta de montaje manual, que suele ser `/mnt/synology` ya que esto se realiza mediante linux puro, pero docker puede manejar el montaje de volumenes por si mismo, esto es mas util ya que siempre que se ejecute el comando docker compose up, montara el volumen y de esta forma no importa que la maquina se reiniciara o que por alguna razon se apagara el sistema. Logrando de esta manera que el volumen sea mas consiste pues se vuelve a montar continuamente
 
 # Multi-stage build
 
