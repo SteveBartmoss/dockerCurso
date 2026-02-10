@@ -197,3 +197,6 @@ EXPOSE 8094
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
+## Manejo de versiones en docker
+
+Cuando se usa una aplicacion desplegada en docker se puede mantener un sistema de versiones para que sea facil volver a una imagen anterior, de esta forma se corrije facilmente un error al momento de actualizar una nueva version de la aplicacion
